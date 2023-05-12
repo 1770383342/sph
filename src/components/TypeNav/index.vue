@@ -13,7 +13,8 @@
         <a href="###">秒杀</a>
       </nav>
       <div class="sort">
-        <div class="all-sort-list2">
+        <!-- 利用事件委派和路由的编程式导航实现跳转和参数传递 -->
+        <div class="all-sort-list2" @click="goSearch">
           <div
             class="item"
             v-for="(c1, index) in categoryList"
@@ -21,7 +22,11 @@
             :class="{ cur: currentIndex == index }"
           >
             <h3 @mouseenter="changeIndex(index)">
-              <a href="">{{ c1.categoryName }}</a>
+              <a
+                :data-categoryName="c1.categoryName"
+                :data-category1Id="c1.categoryId"
+                >{{ c1.categoryName }}</a
+              >
             </h3>
             <!-- 二三级分类 -->
             <div
@@ -35,11 +40,19 @@
               >
                 <dl class="fore">
                   <dt>
-                    <a href="">{{ c2.categoryName }}</a>
+                    <a
+                      :data-categoryName="c2.categoryName"
+                      :data-category2Id="c2.categoryId"
+                      >{{ c2.categoryName }}</a
+                    >
                   </dt>
                   <dd>
                     <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                      <a href="">{{ c3.categoryName }}</a>
+                      <a
+                        :data-categoryName="c3.categoryName"
+                        :data-category3Id="c3.categoryId"
+                        >{{ c3.categoryName }}</a
+                      >
                     </em>
                   </dd>
                 </dl>
@@ -54,6 +67,9 @@
 
 <script>
 import { mapState } from "vuex";
+// 引入lodash，实现节流，防抖
+// 按需引入
+import throttle from "lodash/throttle";
 export default {
   name: "TypeNav",
   data() {
@@ -77,11 +93,33 @@ export default {
   },
   methods: {
     // 鼠标进入修改currentIndex属性
-    changeIndex(index) {
+    // 节流
+    changeIndex: throttle(function (index) {
       this.currentIndex = index;
-    },
+    }, 50),
     leaveIndex() {
       this.currentIndex = -1;
+    },
+    goSearch(event) {
+      // 如果标签的身上拥有categoryName属性则为a标签
+      let { categoryname, category1id, category2id, category3id } =
+        event.target.dataset;
+      if (categoryname) {
+        // 整理路由跳转参数
+        let location = { name: "search" };
+        let query = { categoryName: categoryname };
+        if (category1id) {
+          query.category1Id = category1id;
+        } else if (category2id) {
+          query.category2Id = category2id;
+        } else if (category3id) {
+          query.category3Id = category3id;
+        }
+        // 整理完参数
+        location.query = query;
+        // console.log(location);
+        this.$router.push(location);
+      }
     },
   },
 };
@@ -137,7 +175,7 @@ export default {
             overflow: hidden;
             padding: 0 20px;
             margin: 0;
-
+            cursor: pointer;
             a {
               color: #333;
             }
@@ -191,6 +229,7 @@ export default {
                     padding: 0 8px;
                     margin-top: 5px;
                     border-left: 1px solid #ccc;
+                    cursor: pointer;
                   }
                 }
               }

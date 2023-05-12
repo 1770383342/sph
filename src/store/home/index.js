@@ -9,6 +9,8 @@ const state = {
 // mutations：修改state的唯一手段
 const mutations = {
     CATEGORYLIST(state, categoryList) {
+        categoryList.pop()
+        categoryList.pop()
         state.categoryList = categoryList
     }
 }

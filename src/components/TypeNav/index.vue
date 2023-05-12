@@ -1,6 +1,6 @@
 <template>
   <div class="type-nav">
-    <div class="container">
+    <div class="container" @mouseleave="leaveIndex">
       <h2 class="all">全部商品分类</h2>
       <nav class="nav">
         <a href="###">服装城</a>
@@ -14,19 +14,32 @@
       </nav>
       <div class="sort">
         <div class="all-sort-list2">
-          <div class="item" v-for="(c1) in categoryList" :key="c1.categoryId">
-            <h3>
-              <a href="">{{c1.categoryName}}</a>
+          <div
+            class="item"
+            v-for="(c1, index) in categoryList"
+            :key="c1.categoryId"
+            :class="{ cur: currentIndex == index }"
+          >
+            <h3 @mouseenter="changeIndex(index)">
+              <a href="">{{ c1.categoryName }}</a>
             </h3>
-            <div class="item-list clearfix">
-              <div class="subitem" v-for="(c2) in c1.categoryChild" :key="c2.categoryId">
+            <!-- 二三级分类 -->
+            <div
+              class="item-list clearfix"
+              :style="{ display: currentIndex == index ? 'block' : 'none' }"
+            >
+              <div
+                class="subitem"
+                v-for="c2 in c1.categoryChild"
+                :key="c2.categoryId"
+              >
                 <dl class="fore">
                   <dt>
-                    <a href="">{{c2.categoryName}}</a>
+                    <a href="">{{ c2.categoryName }}</a>
                   </dt>
                   <dd>
-                    <em v-for="(c3) in c2.categoryChild" :key="c3.categoryId">
-                      <a href="">{{c3.categoryName}}</a>
+                    <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
+                      <a href="">{{ c3.categoryName }}</a>
                     </em>
                   </dd>
                 </dl>
@@ -43,6 +56,12 @@
 import { mapState } from "vuex";
 export default {
   name: "TypeNav",
+  data() {
+    return {
+      // 存储用户鼠标移动到哪一个分类
+      currentIndex: -1,
+    };
+  },
   // 组件挂在完毕：可以向服务器发请求
   mounted() {
     // 通知Vuex发请求，获取数据，存储在仓库中
@@ -52,9 +71,18 @@ export default {
     ...mapState({
       categoryList: (state) => {
         // console.log(state);
-        return state.home.categoryList
+        return state.home.categoryList;
       },
     }),
+  },
+  methods: {
+    // 鼠标进入修改currentIndex属性
+    changeIndex(index) {
+      this.currentIndex = index;
+    },
+    leaveIndex() {
+      this.currentIndex = -1;
+    },
   },
 };
 </script>
@@ -169,11 +197,14 @@ export default {
             }
           }
 
-          &:hover {
-            .item-list {
-              display: block;
-            }
-          }
+          // &:hover {
+          //   .item-list {
+          //     display: block;
+          //   }
+          // }
+        }
+        .cur {
+          background-color: skyblue;
         }
       }
     }

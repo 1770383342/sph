@@ -4,7 +4,7 @@ import axios from "axios";
 import nprogress from "nprogress";
 // 引入进度条样式
 import "nprogress/nprogress.css"
-//  start：基督徒开始 done：进度条结束
+//  start：进度条开始 done：进度条结束
 
 // 1:利用axios对象的方法create，去创建一个axios实例
 // 2:request就是axios，只不过稍微配置了一下

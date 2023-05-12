@@ -85,8 +85,6 @@ export default {
   },
   // 组件挂在完毕：可以向服务器发请求
   mounted() {
-    // 通知Vuex发请求，获取数据，存储在仓库中
-    this.$store.dispatch("categoryList");
     this.show = true;
     if (this.$route.name === "search") {
       this.show = false;
@@ -134,10 +132,14 @@ export default {
         } else if (category3id) {
           query.category3Id = category3id;
         }
-        // 整理完参数
-        location.query = query;
-        // console.log(location);
-        this.$router.push(location);
+        // 判断：如果路由跳转的时候，带有params参数也需要传入
+        if (this.$route.params) {
+          location.params= this.$route.params 
+          // 整理完参数
+          location.query = query;
+          // console.log(location);
+          this.$router.push(location);
+        }
       }
     },
   },

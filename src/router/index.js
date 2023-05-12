@@ -44,7 +44,7 @@ export default new VueRouter({
             name: 'search',
             meta: { show: true },
             props($route) {
-                return { keyword: $route.params.keyword, k: $route.query.k }
+                return { keyword: $route.params.keyword }
             }
         },
         // 重定向，访问/，让其访问Home页面

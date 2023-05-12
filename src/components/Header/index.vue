@@ -62,15 +62,19 @@ export default {
   methods: {
     //搜索按钮路由跳转
     goSearch() {
-      this.$router.push(
-        // 路由参数传递
-        // { path: `/search/${this.keyword}?k=${this.keyword}` },
-        {
+      if (this.$route.query) {
+        let location = {
           name: "search",
           params: { keyword: this.keyword || undefined },
-          query: { k: this.keyword },
-        }
-      );
+        };
+        location.query=this.$route.query
+        this.$route.push(location)
+      }
+      this.$router
+        .push
+        // 路由参数传递
+        // { path: `/search/${this.keyword}?k=${this.keyword}` },
+        ();
     },
   },
 };

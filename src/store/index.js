@@ -6,6 +6,8 @@ Vue.use(Vuex)
 // 引入小仓库
 import home from "./home";
 import search from "./search";
+// 引入swiper插件的样式
+import "swiper/css/swiper.css"
 
 // 对外暴露Store类的一个实例
 export default new Vuex.Store({

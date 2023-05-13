@@ -85,7 +85,6 @@ export default {
   mounted() {
     // 通过vuex发送数据请求
     this.$store.dispatch("getBannerList");
-    // 初始化swiper实例
   },
   computed: {
     ...mapState({

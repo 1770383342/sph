@@ -125,6 +125,7 @@ export default {
         // 整理路由跳转参数
         let location = { name: "search" };
         let query = { categoryName: categoryname };
+        // 置空参数防止数据出错
         query.category1Id = "";
         query.category2Id = "";
         query.category3Id = "";

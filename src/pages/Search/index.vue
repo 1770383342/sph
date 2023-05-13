@@ -59,7 +59,7 @@
                   <div class="price">
                     <strong>
                       <em>¥ </em>
-                      <i>{{good.price}}.00</i>
+                      <i>{{ good.price }}.00</i>
                     </strong>
                   </div>
                   <div class="attr">
@@ -67,7 +67,7 @@
                       target="_blank"
                       href="item.html"
                       title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】"
-                      >{{good.title}}</a
+                      >{{ good.title }}</a
                     >
                   </div>
                   <div class="commit">
@@ -128,15 +128,48 @@ import { mapGetters } from "vuex";
 import SearchSelector from "./SearchSelector/SearchSelector";
 export default {
   name: "Search",
+  data() {
+    return {
+      // 带给服务器的参数
+      searchParams: {
+        category1Id: "",
+        category2Id: "",
+        category3Id: "",
+        categoryName: "",
+        keyword: "",
+        order: "",
+        pageNo: 1,
+        pageSize: 10,
+        props: [],
+        trademark: "",
+      },
+    };
+  },
   components: {
     SearchSelector,
   },
+  // 当组件挂载完成之前执行一次
+  beforeMount() {
+    // this.searchParams.category1Id=this.$route.query.category1Id
+    // this.searchParams.category2Id=this.$route.query.category2Id
+    // this.searchParams.category3Id=this.$route.query.category3Id
+    // this.searchParams.categoryName=this.$route.query.categoryName
+    // ES6新增语法，合并对象
+    Object.assign(this.searchParams,this.$route.query,this.$route.params)
+  },
   mounted() {
-    this.$store.dispatch("getSearchList", {});
+    this.getData();
   },
   computed: {
     // 获取vuex仓库里的数据
     ...mapGetters(["goodsList"]),
+  },
+  methods: {
+    // 向服务器发请求获取seacher模块数据
+    // 把请求封装为一个函数，需要时调用即可
+    getData() {
+      this.$store.dispatch("getSearchList", this.searchParams);
+    },
   },
 };
 </script>

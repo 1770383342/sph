@@ -155,9 +155,10 @@ export default {
     // this.searchParams.category3Id=this.$route.query.category3Id
     // this.searchParams.categoryName=this.$route.query.categoryName
     // ES6新增语法，合并对象
-    Object.assign(this.searchParams,this.$route.query,this.$route.params)
+    Object.assign(this.searchParams, this.$route.query, this.$route.params);
   },
   mounted() {
+    // 进入页面时发送请求
     this.getData();
   },
   computed: {
@@ -169,6 +170,14 @@ export default {
     // 把请求封装为一个函数，需要时调用即可
     getData() {
       this.$store.dispatch("getSearchList", this.searchParams);
+    },
+  },
+  watch: {
+    $route(newValue, oldValue) {
+      // 重新整理改变参数
+      Object.assign(this.searchParams, this.$route.query, this.$route.params);
+      // 再次发送请求
+      this.getData();
     },
   },
 };

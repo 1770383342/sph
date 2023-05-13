@@ -125,6 +125,9 @@ export default {
         // 整理路由跳转参数
         let location = { name: "search" };
         let query = { categoryName: categoryname };
+        query.category1Id = "";
+        query.category2Id = "";
+        query.category3Id = "";
         if (category1id) {
           query.category1Id = category1id;
         } else if (category2id) {
@@ -134,7 +137,7 @@ export default {
         }
         // 判断：如果路由跳转的时候，带有params参数也需要传入
         if (this.$route.params) {
-          location.params= this.$route.params 
+          location.params = this.$route.params;
           // 整理完参数
           location.query = query;
           // console.log(location);

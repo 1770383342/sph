@@ -67,14 +67,9 @@ export default {
           name: "search",
           params: { keyword: this.keyword || undefined },
         };
-        location.query=this.$route.query
-        this.$route.push(location)
+        location.query = this.$route.query;
+        this.$router.push(location);
       }
-      this.$router
-        .push
-        // 路由参数传递
-        // { path: `/search/${this.keyword}?k=${this.keyword}` },
-        ();
     },
   },
 };

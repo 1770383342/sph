@@ -3,7 +3,7 @@
     <div class="sortList clearfix">
       <div class="center">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
+        <div class="swiper-container" ref="mySwiper">
           <div class="swiper-wrapper">
             <div
               class="swiper-slide"
@@ -117,7 +117,7 @@ export default {
         // 在修改数据之后立即执行这个方法，获取更新后的DOM
         this.$nextTick(() => {
           let mySwiper = new Swiper(
-            document.querySelector(".swiper-container"),
+            this.$refs.mySwiper,
             {
               loop: true,
               pagination: {

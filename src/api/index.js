@@ -9,3 +9,6 @@ export const reqCatgoryList = () => request({ url: '/product/getBaseCategoryList
 
 // 获取banner（home首页轮播）接口
 export const reqGetBanner=()=>mockRequests.get('/banner')
+
+// 获取floor数据
+export const reqFloorList=()=>mockRequests.get('/floor')

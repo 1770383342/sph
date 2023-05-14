@@ -11,15 +11,26 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <!-- 类型的面包屑 -->
+            <li class="with-x" v-if="searchParams.categoryName">
+              {{ searchParams.categoryName }}
+              <i @click="removeCategoryName">×</i>
+            </li>
+            <!-- 关键字的面包屑 -->
+            <li class="with-x" v-if="searchParams.keyword">
+              {{ searchParams.keyword }}
+              <i @click="removeKeyword">×</i>
+            </li>
+            <!-- 品牌的面包屑 -->
+            <li class="with-x" v-if="searchParams.trademark">
+              {{ searchParams.trademark.split(":")[1] }}
+              <i @click="removeTrademark">×</i>
+            </li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector @trademarkInfo="trademarkInfo" />
 
         <!--details-->
         <div class="details clearfix">
@@ -170,6 +181,45 @@ export default {
     // 把请求封装为一个函数，需要时调用即可
     getData() {
       this.$store.dispatch("getSearchList", this.searchParams);
+    },
+    removeCategoryName() {
+      // 删除分类名字
+      this.searchParams.categoryName = "";
+      // 置空参数防止数据出错
+      // 带给服务器的参数可有可无,如果属性值为空的字段会带给服务器
+      // 如果把属性值变为undefined将不会带给服务器
+      this.searchParams.category1Id = "";
+      this.searchParams.category2Id = "";
+      this.searchParams.category3Id = "";
+      // 重新发送请求
+      this.getData();
+      // 地址栏也需要修改,进行路由器跳转(本意是删除query参数的数据)
+      if (this.$route.params) {
+        this.$router.push({ name: "search", params: this.$route.params });
+      }
+    },
+    removeKeyword() {
+      // 同上,删除关键字
+      this.searchParams.keyword = "";
+      this.getData();
+      if (this.$route.query) {
+        this.$router.push({ name: "search", query: this.$route.query });
+      }
+      // 全局事件总线,通知兄弟组件Header清除关键词
+      this.$bus.$emit("clear");
+    },
+    // 自定义事件回调
+    trademarkInfo(trademark) {
+      // 处理数据
+      this.searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`;
+      // 重新请求数据
+      this.getData();
+    },
+    // 品牌的面包屑删除
+    removeTrademark() {
+      this.searchParams.trademark = "";
+      // 重新请求数据
+      this.getData();
     },
   },
   watch: {

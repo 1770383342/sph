@@ -26,11 +26,20 @@
               {{ searchParams.trademark.split(":")[1] }}
               <i @click="removeTrademark">×</i>
             </li>
+            <!-- 平台售卖的属性值展示 -->
+            <li
+              class="with-x"
+              v-for="(attrValue, index) in searchParams.props"
+              :key="index"
+            >
+              {{ attrValue.split(":")[1] }}
+              <i @click="removeAttrValue(index)">×</i>
+            </li>
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector @trademarkInfo="trademarkInfo" />
+        <SearchSelector @trademarkInfo="trademarkInfo" @attrInfo="attrInfo" />
 
         <!--details-->
         <div class="details clearfix">
@@ -208,7 +217,7 @@ export default {
       // 全局事件总线,通知兄弟组件Header清除关键词
       this.$bus.$emit("clear");
     },
-    // 自定义事件回调
+    // 品牌自定义事件回调
     trademarkInfo(trademark) {
       // 处理数据
       this.searchParams.trademark = `${trademark.tmId}:${trademark.tmName}`;
@@ -220,6 +229,22 @@ export default {
       this.searchParams.trademark = "";
       // 重新请求数据
       this.getData();
+    },
+    // 收集平台属性的自定义事件
+    attrInfo(attr, attrValue) {
+      // 整理参数样式
+      let props = `${attr.attrId}:${attrValue}:${attr.attrName}`;
+      // 数组去重
+      if (this.searchParams.props.indexOf(props) == -1) {
+        this.searchParams.props.push(props);
+        this.getData();
+      }
+    },
+    // 删除售卖属性
+    removeAttrValue(index) {
+      this.searchParams.props.splice(index,1)
+      this.getData();
+
     },
   },
   watch: {

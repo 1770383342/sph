@@ -23,8 +23,13 @@
       <div class="fl key">{{ attr.attrName }}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(attrValueList, index) in attr.attrValueList" :key="index">
-            <a>{{ attrValueList }}</a>
+          <!-- 平台售卖属性值 -->
+          <li
+            v-for="(attrValue, index) in attr.attrValueList"
+            :key="index"
+            @click="attrInfo(attr, attrValue)"
+          >
+            <a>{{ attrValue }}</a>
           </li>
         </ul>
       </div>
@@ -44,7 +49,10 @@ export default {
     // 品牌的事件处理函数
     // 自定义事件子传父
     trademarkHandler(trademark) {
-      this.$emit('trademarkInfo',trademark)
+      this.$emit("trademarkInfo", trademark);
+    },
+    attrInfo(attr,arrtValue) {
+      this,this.$emit('attrInfo',attr,arrtValue)
     },
   },
 };
@@ -105,6 +113,7 @@ export default {
           color: #e1251b;
           font-style: italic;
           font-size: 14px;
+          cursor: pointer;
 
           img {
             max-width: 100%;
@@ -119,6 +128,7 @@ export default {
           display: block;
           margin-right: 30px;
           line-height: 26px;
+          cursor: pointer;
 
           a {
             text-decoration: none;

@@ -103,35 +103,13 @@
               </li>
             </ul>
           </div>
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
-          </div>
+          <!-- 分页器 continues连续页码数 -->
+          <Pagination
+            :pageNo="8"
+            :pageSize="3"
+            :totle="91"
+            :continues="5"
+          ></Pagination>
         </div>
       </div>
     </div>
@@ -155,7 +133,7 @@ export default {
         // 默认排序值
         order: "1:desc",
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 3,
         props: [],
         trademark: "",
       },

@@ -105,10 +105,11 @@
           </div>
           <!-- 分页器 continues连续页码数 -->
           <Pagination
-            :pageNo="8"
-            :pageSize="3"
-            :totle="91"
+            :pageNo="searchParams.pageNo"
+            :pageSize="searchParams.pageSize"
+            :totle="totle"
             :continues="5"
+            @getPageNo="getPageNo"
           ></Pagination>
         </div>
       </div>
@@ -117,7 +118,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import SearchSelector from "./SearchSelector/SearchSelector";
 export default {
   name: "Search",
@@ -133,7 +134,7 @@ export default {
         // 默认排序值
         order: "1:desc",
         pageNo: 1,
-        pageSize: 3,
+        pageSize: 10,
         props: [],
         trademark: "",
       },
@@ -170,6 +171,10 @@ export default {
     isDesc() {
       return this.searchParams.order.indexOf("desc") != -1;
     },
+    // 获取search模块展示产品一个多少数据
+    ...mapState({
+      totle: (state) => state.search.searchList.total,
+    }),
   },
   methods: {
     // 向服务器发请求获取seacher模块数据
@@ -248,6 +253,11 @@ export default {
           this.searchParams.order = "2:desc";
         }
       }
+      this.getData();
+    },
+    // 获取当前第几页
+    getPageNo(pageNo) {
+      this.searchParams.pageNo = pageNo;
       this.getData();
     },
   },

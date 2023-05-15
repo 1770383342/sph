@@ -1,18 +1,40 @@
 <template>
   <div class="pagination">
-    <button>上一页</button>
-    <button>1</button>
-    <button>...</button>
-    <button>3</button>
-    <button>4</button>
-    <button>{{ pageNo }}</button>
-    <button>6</button>
-    <button>7</button>
-    <button>...</button>
-    <button>{{ totlePage }}</button>
-    <button>下一页</button>
+    <button :disabled="pageNo === 1" @click="$emit('getPageNo', pageNo - 1)">
+      上一页
+    </button>
+    <button v-if="startNumAndEndNum.start > 1" @click="$emit('getPageNo', 1)">
+      1
+    </button>
+    <button v-if="startNumAndEndNum.start > 2">...</button>
 
-    <button style="margin-left: 30px">共 {{ totle }} 条</button>
+    <button
+      v-for="(page, index) in startNumAndEndNum.end"
+      :key="index"
+      v-show="page >= startNumAndEndNum.start"
+      @click="$emit('getPageNo', page)"
+      :class="{ active: pageNo === page }"
+    >
+      {{ page }}
+    </button>
+
+    <button v-if="startNumAndEndNum.end < totlePage - 1">...</button>
+    <button
+      v-if="startNumAndEndNum.end < totlePage"
+      @click="$emit('getPageNo', totlePage)"
+    >
+      {{ totlePage }}
+    </button>
+    <button
+      :disabled="pageNo === totlePage"
+      @click="$emit('getPageNo', pageNo + 1)"
+    >
+      下一页
+    </button>
+
+    <button style="margin-left: 30px">
+      当前页 {{ pageNo }} / 共 {{ totle }} 条
+    </button>
   </div>
 </template>
   

@@ -26,7 +26,7 @@ const actions = {
 // 用于简化仓库数据，让组件获取仓库数据更加方便
 const getters = {
     // 当前行参为小仓库的state并非大仓库的state
-    goodsList(state) {
+    goodsList() {
         // 可能数据出错导致searchList无数据
         return state.searchList.goodsList || []
     },

@@ -49,7 +49,13 @@ const actions = {
     }
 }
 // getters：理解为计算属性，用于简化仓库数据，让组件获取仓库数据更加方便
-const getters = {}
+const getters = {
+    newMutations() {
+        state.categoryList.pop()
+        state.categoryList.pop()
+        return state.categoryList
+    }
+}
 
 export default {
     state,

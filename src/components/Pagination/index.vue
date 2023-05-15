@@ -53,7 +53,7 @@ export default {
       let start = 0,
         end = 0;
       // 连续的页码数字5[就是至少5页]，如果出现不正常的现象[就是不够五条]
-      //   不正常现象，连续页码没有总页码多
+      // 不正常现象，连续页码没有总页码多
       if (this.continues > this.totlePage) {
         start = 1;
         end = this.totlePage;

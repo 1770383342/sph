@@ -8,10 +8,13 @@ import mockRequests from "./mockAjax"
 export const reqCatgoryList = () => request({ url: '/product/getBaseCategoryList', method: 'get' })
 
 // 获取banner（home首页轮播）接口
-export const reqGetBanner=()=>mockRequests.get('/banner')
+export const reqGetBanner = () => mockRequests.get('/banner')
 
 // 获取floor数据
-export const reqFloorList=()=>mockRequests.get('/floor')
+export const reqFloorList = () => mockRequests.get('/floor')
 
 // 获取搜索模块数据 /api/list post请求
-export const reqGetsearchInfo=(params)=>request.post('/list',params)
+export const reqGetsearchInfo = (params) => request.post('/list', params)
+
+// 获取产品信息详情接口
+export const reqGoodsInfo = (skuId) => request.get(`/item/${skuId}`)

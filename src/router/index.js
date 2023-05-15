@@ -3,10 +3,7 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter)
 
 // 引入路由组件
-import Home from '../pages/Home'
-import Login from '../pages/Login'
-import Register from '../pages/Register'
-import Search from '../pages/Search'
+import routes from './routes'
 
 // 重写push|replace
 let originPush = VueRouter.prototype.push
@@ -21,37 +18,10 @@ VueRouter.prototype.push = function (locatipon, resolve, reject) {
 
 export default new VueRouter({
     // 配置路由
-    routes: [
-        {
-            path: '/home',
-            component: Home,
-            meta: { show: true }
-        },
-        {
-            path: '/login',
-            component: Login,
-            meta: { show: false }
-        },
-        {
-            path: '/register',
-            component: Register,
-            meta: { show: false }
-        },
-        {
-            // params的url参数跳转需要占位接收
-            path: '/search/:keyword?',
-            component: Search,
-            name: 'search',
-            meta: { show: true },
-            props($route) {
-                return { keyword: $route.params.keyword }
-            }
-        },
-        // 重定向，访问/，让其访问Home页面
-        {
-            path: '*',
-            component: Home,
-            meta: { show: true }
-        }
-    ]
+    routes,
+    // 滚动行为
+    scrollBehavior (to, from, savedPosition) {
+        // ...
+        return {y:0}
+    }
 })

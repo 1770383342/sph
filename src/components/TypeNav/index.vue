@@ -86,7 +86,7 @@ export default {
   // 组件挂在完毕：可以向服务器发请求
   mounted() {
     this.show = true;
-    if (this.$route.name === "search") {
+    if (this.$route.name !== "home") {
       this.show = false;
     }
   },
@@ -107,13 +107,13 @@ export default {
     leaveIndex() {
       this.currentIndex = -1;
       // 当鼠标移出时，search页面隐藏商品分类列表
-      if (this.$route.name === "search") {
+      if (this.$route.name !== "home") {
         this.show = false;
       }
     },
     // 当鼠标移入时，展示商品分类列表
     enterShow() {
-      if (this.$route.name === "search") {
+      if (this.$route.name !== "home") {
         this.show = true;
       }
     },

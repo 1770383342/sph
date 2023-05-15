@@ -1,5 +1,4 @@
 // search模块的小仓库
-
 import { reqGetsearchInfo } from "@/api"
 
 // state：仓库存储数据的地方

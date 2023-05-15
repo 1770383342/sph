@@ -18,3 +18,6 @@ export const reqGetsearchInfo = (params) => request.post('/list', params)
 
 // 获取产品信息详情接口
 export const reqGoodsInfo = (skuId) => request.get(`/item/${skuId}`)
+
+// 添加购物车请求
+export const reqAddOrUpdateShopToCart = (skuId, skuNum) => request.post(`/cart/addToCart/${skuId}/${skuNum}`)

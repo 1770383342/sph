@@ -99,12 +99,22 @@
             </div>
             <div class="cartWrap">
               <div class="controls">
-                <input autocomplete="off" class="itxt" />
-                <a href="javascript:" class="plus">+</a>
-                <a href="javascript:" class="mins">-</a>
+                <input
+                  autocomplete="off"
+                  class="itxt"
+                  v-model="skuNum"
+                  @change="changeSukNum"
+                />
+                <a href="javascript:" class="plus" @click="skuNum++">+</a>
+                <a
+                  href="javascript:"
+                  class="mins"
+                  @click="skuNum <= 1 ? skuNum : skuNum--"
+                  >-</a
+                >
               </div>
               <div class="add">
-                <a href="javascript:">加入购物车</a>
+                <a @click="addShopCart">加入购物车</a>
               </div>
             </div>
           </div>
@@ -353,6 +363,12 @@ export default {
     ImageList,
     Zoom,
   },
+  data() {
+    return {
+      // 购买产品的个数
+      skuNum: 1,
+    };
+  },
   mounted() {
     this.$store.dispatch("getGoodsInfo", this.$route.params.skuid);
   },
@@ -367,6 +383,30 @@ export default {
         e.isChecked = "0";
       });
       attrValue.isChecked = "1";
+    },
+    // 输入购物车产品数量
+    changeSukNum() {
+      // 如果用户输入非法
+      if (isNaN(this.skuNum * 1 || this.skuNum < 1)) {
+        this.skuNum = 1;
+      } else {
+        this.skuNum = parseInt(this.skuNum);
+      }
+    },
+    // 点击购物车
+    addShopCart() {
+      // 1.发送请求将产品加入到购物车中
+      // 判断加入购物车成功还是失败
+      this.$store
+        .dispatch("AddOrUpdateShopToCart", {
+          skuId: this.$route.params.skuid,
+          skuNum: this.skuNum,
+        })
+        .then((res) => {
+          console.log(res);
+        });
+      // 2.服务器存储成功后进行路由器跳转
+      // 3.失败，给用户提示
     },
   },
 };
@@ -580,6 +620,7 @@ export default {
 
             .add {
               float: left;
+              cursor: pointer;
 
               a {
                 background-color: #e1251b;

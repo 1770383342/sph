@@ -1,6 +1,6 @@
 // detail模块的小仓库
 
-import { reqGoodsInfo } from "@/api"
+import { reqAddOrUpdateShopToCart, reqGoodsInfo } from "@/api"
 
 const state = {
     goodInfo: {}
@@ -15,6 +15,16 @@ const actions = {
         let result = await reqGoodsInfo(params)
         if (result.code == 200) {
             commit("GETGOODSINFO", result.data)
+        }
+    },
+    // 将产品添加到购物车中
+    async AddOrUpdateShopToCart({ commit }, { skuId, skuNum }) {
+        let result = await reqAddOrUpdateShopToCart(skuId, skuNum)
+        // 因为服务器没有返回其他的数据，使用不需要进行数据存储
+        if (result.code == 200) {
+            return "成功"
+        } else {
+            return Promise.reject(new Error('faile'))
         }
     },
 }

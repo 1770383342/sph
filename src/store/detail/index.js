@@ -3,11 +3,11 @@
 import { reqGoodsInfo } from "@/api"
 
 const state = {
-    reqGoodsInfo: {}
+    goodInfo: {}
 }
 const mutations = {
-    GETGOODSINFO(state, reqGoodsInfo) {
-        state.reqGoodsInfo = reqGoodsInfo
+    GETGOODSINFO(state, goodInfo) {
+        state.goodInfo = goodInfo
     }
 }
 const actions = {
@@ -18,7 +18,21 @@ const actions = {
         }
     },
 }
-const getters = {}
+const getters = {
+    // 简化数据
+    // 无数据时数据保护
+    categoryView() {
+        return state.goodInfo.categoryView || {}
+    },
+    // 产品信息数据
+    skuInfo() {
+        return state.goodInfo.skuInfo || {}
+    },
+    // 产品售卖数据
+    spuSaleAttrList() {
+        return state.goodInfo.spuSaleAttrList || []
+    }
+}
 
 export default {
     state, mutations, actions, getters

@@ -3,10 +3,10 @@
 import { reqCartList } from "@/api"
 
 const state = {
-    carList: {}
+    carList: []
 }
 const mutations = {
-    GETCARTLIST(state, goodInfo) {
+    GETCARTLIST(state, carList) {
         state.carList = carList
     }
 }
@@ -19,7 +19,12 @@ const actions = {
     },
 }
 const getters = {
-
+    carList() {
+        return state.carList[0]
+    },
+    cartInfoList() {
+        return state.carList[0].cartInfoList
+    }
 }
 
 export default {

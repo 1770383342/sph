@@ -404,11 +404,19 @@ export default {
         })
         .then((res) => {
           if (res === "成功") {
-            this.$router.push({ name: "addcartssuccess" });
+            // 2.服务器存储成功后进行路由器跳转
+            // 本地数据存储
+            sessionStorage.setItem("SKUINFO", JSON.stringify(this.skuInfo));
+            this.$router.push({
+              name: "addcartssuccess",
+              query: {
+                skuNum: this.skuNum,
+              },
+            });
+            // 在路由跳转的时候还需要将产品信息带给下一级的路由组件
           } else {
+            // 3.失败，给用户提示
           }
-          // 2.服务器存储成功后进行路由器跳转
-          // 3.失败，给用户提示
         });
     },
   },

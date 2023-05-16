@@ -4,6 +4,7 @@ import Register from '../pages/Register'
 import Search from '../pages/Search'
 import Detail from '../pages/Detail'
 import AddCartSuccess from '../pages/AddCartSuccess'
+import SchopCart from '../pages/ShopCart'
 
 // 配置路由
 export default [
@@ -49,6 +50,12 @@ export default [
         path: '/addCartSuccess',
         name: 'addcartssuccess',
         component: AddCartSuccess,
+        meta: { show: false }
+    },
+    {
+        path: '/shopcart',
+        name: 'ShopCart',
+        component: SchopCart,
         meta: { show: false }
     }
 ]

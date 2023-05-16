@@ -3,6 +3,7 @@ import Login from '../pages/Login'
 import Register from '../pages/Register'
 import Search from '../pages/Search'
 import Detail from '../pages/Detail'
+import AddCartSuccess from '../pages/AddCartSuccess'
 
 // 配置路由
 export default [
@@ -14,7 +15,7 @@ export default [
     },
     {
         path: '/home',
-        name:'home',
+        name: 'home',
         component: Home,
         meta: { show: true }
     },
@@ -43,5 +44,11 @@ export default [
         path: '*',
         component: Home,
         meta: { show: true }
+    },
+    {
+        path: '/addCartSuccess',
+        name: 'addcartssuccess',
+        component: AddCartSuccess,
+        meta: { show: false }
     }
 ]

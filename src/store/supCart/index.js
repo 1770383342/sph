@@ -3,11 +3,11 @@
 import { reqCartList } from "@/api"
 
 const state = {
-    // goodInfo: {}
+    carList: {}
 }
 const mutations = {
     GETCARTLIST(state, goodInfo) {
-        // state.goodInfo = goodInfo
+        state.carList = carList
     }
 }
 const actions = {

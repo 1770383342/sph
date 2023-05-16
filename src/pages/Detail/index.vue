@@ -403,7 +403,10 @@ export default {
           skuNum: this.skuNum,
         })
         .then((res) => {
-          console.log(res);
+          if (res === "成功") {
+            this.$router.push({ name: "addcartssuccess" });
+          } else {
+          }
           // 2.服务器存储成功后进行路由器跳转
           // 3.失败，给用户提示
         });

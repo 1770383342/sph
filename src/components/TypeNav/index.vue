@@ -88,6 +88,9 @@ export default {
     if (this.$route.name !== "home" && this.$route.path !== "/") {
       this.show = false;
     }
+    // 通知Vuex发请求，获取数据，存储在仓库中
+    // 获取三级分类列表的数据
+    this.$store.dispatch("categoryList");
   },
   computed: {
     ...mapState({

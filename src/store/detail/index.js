@@ -1,9 +1,11 @@
 // detail模块的小仓库
-
 import { reqAddOrUpdateShopToCart, reqGoodsInfo } from "@/api"
+import { getUUID } from "@/utils/uuid_token"
 
 const state = {
-    goodInfo: {}
+    goodInfo: {},
+    // 封装游客身份模块uuid（随机一次不能在变）
+    uuid_token: getUUID()
 }
 const mutations = {
     GETGOODSINFO(state, goodInfo) {

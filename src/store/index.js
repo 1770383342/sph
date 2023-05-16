@@ -7,6 +7,7 @@ Vue.use(Vuex)
 import home from "./home";
 import search from "./search";
 import detail from "./detail";
+import supCart from "./supCart";
 // 引入swiper插件的样式
 import "swiper/css/swiper.css"
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
     modules: {
         home,
         search,
-        detail
+        detail,
+        supCart
     }
 })

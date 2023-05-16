@@ -1,10 +1,10 @@
 <template>
-<div>
-  <Header></Header>
-  <!-- 路由组件出口  -->
-  <router-view></router-view>
-  <Footer v-show="$route.meta.show"></Footer>
-</div>
+  <div>
+    <Header></Header>
+    <!-- 路由组件出口  -->
+    <router-view></router-view>
+    <Footer v-show="$route.meta.show"></Footer>
+  </div>
 </template>
 
 <script>
@@ -15,13 +15,8 @@ export default {
   name: "App",
   components: {
     Header,
-    Footer
+    Footer,
   },
-  mounted(){
-        // 通知Vuex发请求，获取数据，存储在仓库中
-        // 获取三级分类列表的数据
-        this.$store.dispatch("categoryList");
-  }
 };
 </script>
 

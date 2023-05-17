@@ -97,13 +97,25 @@ export default {
       this.$store.dispatch("getCartList");
     },
     // 修改某一个产品的个数
-    handler(type, disNum,cart) {
-      console.log(disNum,cart);
+    handler(type, disNum, cart) {
       if (type === "minus") {
+        disNum = cart.skuNum > 1 ? -1 : 0;
       } else if (type === "add") {
       } else {
+        disNum =
+          isNaN(disNum) || disNum < 1 ? 0 : parseInt(disNum) - cart.skuNum;
       }
-      // this.$store.dispatch();
+      // 派发action
+      this.$store
+        .dispatch("AddOrUpdateShopToCart", {
+          skuId: cart.skuId,
+          skuNum: disNum,
+        })
+        .then((res) => {
+          if (res === "成功") {
+            this.getData();
+          }
+        });
     },
   },
   computed: {

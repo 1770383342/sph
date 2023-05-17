@@ -24,3 +24,6 @@ export const reqAddOrUpdateShopToCart = (skuId, skuNum) => request.post(`/cart/a
 
 // 获取购物车列表接口
 export const reqCartList = () => request.get('/cart/cartList')
+
+// 删除购物车商品
+export const reqDeleteCart = () => request.delete(`/cart/deleteCart`)

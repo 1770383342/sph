@@ -2,7 +2,6 @@
 
 import { reqCartList, reqChangeCheckCart, reqDeleteCart } from "@/api"
 
-
 const state = {
     carList: []
 }
@@ -38,6 +37,16 @@ const actions = {
             return '失败'
         }
     },
+    // 删除全部勾选的商品
+    deleteAllChecked({ dispatch, getters }) {
+        let PromiseAll = []
+        getters.cartInfoList.forEach(e => {
+            if (e.isChecked === 1) {
+                PromiseAll.push(dispatch('deleteCart', e.skuId))
+            }
+        });
+        return Promise.all(PromiseAll)
+    }
 }
 const getters = {
     carList() {

@@ -1,6 +1,7 @@
 // supCart模块的小仓库
 
-import { reqCartList } from "@/api"
+import { reqCartList, reqDeleteCart } from "@/api"
+
 
 const state = {
     carList: []
@@ -19,10 +20,12 @@ const actions = {
         }
     },
     // 删除购物车数据
-    async getCartList({ commit }) {
-        let result = await reqDeleteCart()
+    async deleteCart({ commit }, skuId) {
+        let result = await reqDeleteCart(skuId)
         if (result.code == 200) {
-          
+            return '成功'
+        } else {
+            return '失败'
         }
     },
 }

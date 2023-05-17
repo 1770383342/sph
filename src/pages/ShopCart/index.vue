@@ -54,7 +54,7 @@
             <span class="sum">{{ cart.skuPrice * cart.skuNum }}.00</span>
           </li>
           <li class="cart-list-con7">
-            <a href="#none" class="sindelet">删除</a>
+            <a class="sindelet" @click="deleteCart(cart.skuId)">删除</a>
             <br />
             <a href="#none">移到收藏</a>
           </li>
@@ -132,6 +132,14 @@ export default {
       isAllCheck = this.cartInfoList.every((e) => e.isChecked === 1);
       return isAllCheck;
     },
+    // 删除购物车点击
+    deleteCart(skuId){
+      this.$store.dispatch('deleteCart',skuId).then((res)=>{
+        if(res==='成功'){
+          this.getData();
+        }
+      })
+    }
   },
 };
 </script>

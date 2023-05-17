@@ -1,6 +1,6 @@
 // supCart模块的小仓库
 
-import { reqCartList, reqDeleteCart } from "@/api"
+import { reqCartList, reqChangeCheckCart, reqDeleteCart } from "@/api"
 
 
 const state = {
@@ -22,6 +22,16 @@ const actions = {
     // 删除购物车数据
     async deleteCart({ commit }, skuId) {
         let result = await reqDeleteCart(skuId)
+        if (result.code == 200) {
+            return '成功'
+        } else {
+            return '失败'
+        }
+    },
+    // 切换商品选中状态
+    async changeCheckCart({ commit }, { skuId, isChecked }) {
+        isChecked = isChecked ? 1 : 0
+        let result = await reqChangeCheckCart(skuId, isChecked)
         if (result.code == 200) {
             return '成功'
         } else {

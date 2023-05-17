@@ -26,4 +26,7 @@ export const reqAddOrUpdateShopToCart = (skuId, skuNum) => request.post(`/cart/a
 export const reqCartList = () => request.get('/cart/cartList')
 
 // 删除购物车商品
-export const reqDeleteCart = (skuId) => request.delete(`/cart/deleteCart${skuId}`)
+export const reqDeleteCart = (skuId) => request.delete(`/cart/deleteCart/${skuId}`)
+
+// 切换商品选中状态
+export const reqChangeCheckCart = (skuId, isChecked) => request.get(`/cart/checkCart/${skuId}/${isChecked}`)

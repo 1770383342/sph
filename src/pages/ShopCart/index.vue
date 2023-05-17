@@ -17,6 +17,7 @@
               type="checkbox"
               name="chk_list"
               :checked="cart.isChecked === 1"
+              @change="changeCheckCart($event.target.checked, cart.skuId)"
             />
           </li>
           <li class="cart-list-con2">
@@ -87,6 +88,8 @@
 
 <script>
 import { mapGetters } from "vuex";
+import throttle from "lodash/throttle";
+
 export default {
   name: "ShopCart",
   mounted() {
@@ -97,7 +100,7 @@ export default {
       this.$store.dispatch("getCartList");
     },
     // 修改某一个产品的个数
-    handler(type, disNum, cart) {
+    handler: throttle(function (type, disNum, cart) {
       if (type === "minus") {
         disNum = cart.skuNum > 1 ? -1 : 0;
       } else if (type === "add") {
@@ -110,6 +113,27 @@ export default {
         .dispatch("AddOrUpdateShopToCart", {
           skuId: cart.skuId,
           skuNum: disNum,
+        })
+        .then((res) => {
+          if (res === "成功") {
+            this.getData();
+          }
+        });
+    }, 1000),
+    // 删除购物车点击
+    deleteCart(skuId) {
+      this.$store.dispatch("deleteCart", skuId).then((res) => {
+        if (res === "成功") {
+          this.getData();
+        }
+      });
+    },
+    // 切换商品选中状态
+    changeCheckCart(checked, skuId) {
+      this.$store
+        .dispatch("changeCheckCart", {
+          skuId,
+          isChecked: checked,
         })
         .then((res) => {
           if (res === "成功") {
@@ -144,14 +168,6 @@ export default {
       isAllCheck = this.cartInfoList.every((e) => e.isChecked === 1);
       return isAllCheck;
     },
-    // 删除购物车点击
-    deleteCart(skuId){
-      this.$store.dispatch('deleteCart',skuId).then((res)=>{
-        if(res==='成功'){
-          this.getData();
-        }
-      })
-    }
   },
 };
 </script>
@@ -283,6 +299,7 @@ export default {
 
         .cart-list-con7 {
           width: 13%;
+          cursor: pointer;
 
           a {
             color: #666;

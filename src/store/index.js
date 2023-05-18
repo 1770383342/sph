@@ -8,6 +8,7 @@ import home from "./home";
 import search from "./search";
 import detail from "./detail";
 import supCart from "./supCart";
+import user from "./user";
 // 引入swiper插件的样式
 import "swiper/css/swiper.css"
 
@@ -18,6 +19,7 @@ export default new Vuex.Store({
         home,
         search,
         detail,
-        supCart
+        supCart,
+        user
     }
 })

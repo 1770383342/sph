@@ -30,3 +30,12 @@ export const reqDeleteCart = (skuId) => request.delete(`/cart/deleteCart/${skuId
 
 // 切换商品选中状态
 export const reqChangeCheckCart = (skuId, isChecked) => request.get(`/cart/checkCart/${skuId}/${isChecked}`)
+
+// 获取验证码接口
+export const reqSendCode = (phone) => request.get(`/user/passport/sendCode/${phone}`)
+
+// 注册用户
+export const reqRegister = (params) => request.post('/user/passport/register', params)
+
+// 用户登录
+export const reqUserLogin = (params) => request.post('/user/passport/login', params)

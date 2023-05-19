@@ -4,6 +4,7 @@ Vue.use(VueRouter)
 
 // 引入路由组件
 import routes from './routes'
+import store from '@/store'
 
 // 重写push|replace
 let originPush = VueRouter.prototype.push
@@ -16,12 +17,22 @@ VueRouter.prototype.push = function (locatipon, resolve, reject) {
     }
 }
 
-export default new VueRouter({
+let router = new VueRouter({
     // 配置路由
     routes,
     // 滚动行为
-    scrollBehavior (to, from, savedPosition) {
-        // ...
-        return {y:0}
+    scrollBehavior(to, from, savedPosition) {
+        return { y: 0 }
     }
 })
+
+// 全局首位，前置守卫
+router.beforeEach((to, from, next) => {
+    // to and from are both route objects. must call `next`.
+    // to:你想要跳转的路由信息
+    // from:你从那个路由来的信息
+    // next:放行函数 next()放行     next(path)放行到指令路由
+    next()
+})
+
+export default router

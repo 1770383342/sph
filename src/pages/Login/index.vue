@@ -86,9 +86,10 @@ export default {
     };
   },
   methods: {
+    // 用户登录
     userLogin() {
       let { phone, password } = this;
-      if (phone && password)
+      if (phone && password) {
         this.$store
           .dispatch("UserLogin", {
             phone,
@@ -97,10 +98,11 @@ export default {
           .then((res) => {
             if (res === "成功") {
               this.$router.push("/home");
-            }else{
+            } else {
               console.log(res);
             }
           });
+      }
     },
   },
 };

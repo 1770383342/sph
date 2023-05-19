@@ -39,3 +39,9 @@ export const reqRegister = (params) => request.post('/user/passport/register', p
 
 // 用户登录
 export const reqUserLogin = (params) => request.post('/user/passport/login', params)
+
+// 获取用户信息【需要带token】
+export const reqUserInfo = () => request.get('/user/passport/auth/getUserInfo')
+
+// 退出登录
+export const reqUserLogout=()=>request.get('/user/passport/logout')

@@ -32,7 +32,36 @@ router.beforeEach((to, from, next) => {
     // to:你想要跳转的路由信息
     // from:你从那个路由来的信息
     // next:放行函数 next()放行     next(path)放行到指令路由
-    next()
+    let token = store.state.user.token
+    let name = store.state.user.userInfo.name
+    // 判断用户是否登录
+    if (token) {
+        // 用户已经登录不能去登录页面,停留在首页
+        if (to.path === '/login') {
+            next('/')
+        } else {
+            // 登录了去的不是login
+            if (name) {
+                next()
+            } else {
+                // 没有用户信息，派发action让仓库存储用户信息再跳转
+                store.dispatch("getUserinfo").then((res) => {
+                    // 获取用户信息成功
+                    if (res === '成功') {
+                        next()
+                    } else {
+                        // 请求失败（token失效）获取不到用户信息
+                        // 清除失效token
+                        store.dispatch('Userout')
+                        next('/login')
+                    }
+                })
+            }
+        }
+    } else {
+        // 未登录，放行
+        next()
+    }
 })
 
 export default router

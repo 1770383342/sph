@@ -6,6 +6,7 @@ import Detail from '../pages/Detail'
 import AddCartSuccess from '../pages/AddCartSuccess'
 import SchopCart from '../pages/ShopCart'
 import Trade from '../pages/Trade'
+import Pay from "../pages/Pay";
 
 // 配置路由
 export default [
@@ -62,6 +63,11 @@ export default [
     {
         path: '/trade',
         component: Trade,
+        meta: { show: false }
+    },
+    {
+        path: '/pay',
+        component: Pay,
         meta: { show: false }
     }
 ]

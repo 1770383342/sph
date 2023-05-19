@@ -13,6 +13,14 @@ import store from './store'
 import router from './router'
 // 引入mock数据
 import './mock/mockSever'
+// 引入接口文件
+import * as API from "@/api";
+// 引入element-ui
+// import ElementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css';
+// Vue.use(ElementUI); 全局注册
+import { Button } from 'element-ui';
+Vue.component(Button.name, Button);
 
 Vue.config.productionTip = false
 new Vue({
@@ -20,6 +28,7 @@ new Vue({
   // 全局事件总线
   beforeCreate() {
     Vue.prototype.$bus = this
+    Vue.prototype.$api = API
   },
   // 注册路由
   router,

@@ -94,7 +94,9 @@
       </ul>
     </div>
     <div class="trade">
-      <div class="price">应付金额:　<span>¥{{ UserTrade.totalAmount }}.00</span></div>
+      <div class="price">
+        应付金额:　<span>¥{{ UserTrade.totalAmount }}.00</span>
+      </div>
       <div class="receiveInfo">
         寄送至:
         <span>{{
@@ -107,13 +109,14 @@
       </div>
     </div>
     <div class="sub clearFix">
-      <router-link class="subBtn" to="/pay">提交订单</router-link>
+      <a class="subBtn" @click="submitOrder()">提交订单</a>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+
 export default {
   name: "Trade",
   data() {
@@ -140,6 +143,29 @@ export default {
         e.isDefault = "0";
       });
       UserAddress.isDefault = "1";
+    },
+    // 提交订单
+    submitOrder() {
+      // console.log(this.$api);
+      let { tradeNo } = this.UserTrade;
+      let { consignee, phoneNum, fullAddress } = this.userDefaultAddress;
+      this.$api
+        .reqSubmitOrder(tradeNo, {
+          consignee,
+          consigneeTel: phoneNum,
+          deliveryAddress: fullAddress,
+          paymentWay: "ONLINE",
+          orderComment: this.msg,
+          orderDetailList: this.UserTrade.detailArrayList,
+        })
+        .then((res) => {
+          if (res.code === 200) {
+            this.$router.push({
+              path: "/pay",
+              query: { orderId: res.data },
+            });
+          }
+        });
     },
   },
 };
@@ -393,6 +419,8 @@ export default {
       text-align: center;
       color: #fff;
       background-color: #e1251b;
+      caret-color: transparent;
+      cursor: pointer;
     }
   }
 }

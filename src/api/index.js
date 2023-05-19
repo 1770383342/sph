@@ -51,3 +51,9 @@ export const reqFindUserAddressList = () => request.get('/user/userAddress/auth/
 
 // 获取用户交易页信息
 export const reqUserTrade = () => request.get('/order/auth/trade')
+
+// 提交订单
+export const reqSubmitOrder = (tradeNo, params) => request.post(`/order/auth/submitOrder?tradeNo=${tradeNo}`, params)
+
+// 获取支付信息
+export const reqPayInfo = (orderId) => request.get(`/payment/weixin/createNative/${orderId}`)

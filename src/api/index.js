@@ -44,4 +44,10 @@ export const reqUserLogin = (params) => request.post('/user/passport/login', par
 export const reqUserInfo = () => request.get('/user/passport/auth/getUserInfo')
 
 // 退出登录
-export const reqUserLogout=()=>request.get('/user/passport/logout')
+export const reqUserLogout = () => request.get('/user/passport/logout')
+
+// 获取用户地址信息
+export const reqFindUserAddressList = () => request.get('/user/userAddress/auth/findUserAddressList')
+
+// 获取用户交易页信息
+export const reqUserTrade = () => request.get('/order/auth/trade')

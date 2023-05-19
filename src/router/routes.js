@@ -5,6 +5,7 @@ import Search from '../pages/Search'
 import Detail from '../pages/Detail'
 import AddCartSuccess from '../pages/AddCartSuccess'
 import SchopCart from '../pages/ShopCart'
+import Trade from '../pages/Trade'
 
 // 配置路由
 export default [
@@ -56,6 +57,11 @@ export default [
         path: '/shopcart',
         name: 'ShopCart',
         component: SchopCart,
+        meta: { show: false }
+    },
+    {
+        path: '/trade',
+        component: Trade,
         meta: { show: false }
     }
 ]

@@ -94,6 +94,7 @@
 
 <script>
 import { MessageBox } from "element-ui";
+import { Message } from "element-ui";
 import QRCode from "qrcode";
 
 export default {
@@ -101,6 +102,7 @@ export default {
   data() {
     return {
       payInfo: {},
+      code: "",
     };
   },
   components: {},
@@ -132,15 +134,31 @@ export default {
         confirmButtonText: "确定",
         // 右上角关闭
         showClose: false,
-        // callback: (action) => {
-        // MessageBox.message({
-        // type: "info",
-        // message: `action: ${action}`,
-        // });
-        // },
+        // 是否在 MessageBox 出现时将 body 滚动锁定
+        lockScroll: false,
+        callback: (action) => {
+          clearInterval(this.timer);
+          this.timer = null;
+          Message({
+            type: "info",
+            message: `action${action}`,
+          });
+        },
       });
+      // 请求支付结果
+      if (!this.timer) {
+        this.timer = setInterval(async () => {
+          let res = await this.$api.reqQueryPayStatus(this.orderId);
+          if (res.code === 205) {
+            clearInterval(this.timer);
+            this.timer = null;
+            this.code = res.code;
+            MessageBox.close();
+            this.$router.push("/paysuccess");
+          }
+        }, 3000);
+      }
     },
-    // this.$router.push("/paysuccess");
   },
 };
 </script>

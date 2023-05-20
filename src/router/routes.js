@@ -8,6 +8,10 @@ import SchopCart from '../pages/ShopCart'
 import Trade from '../pages/Trade'
 import Pay from "../pages/Pay";
 import PaySuccess from '../pages/PaySuccess'
+import Center from '../pages/Center'
+// 引入二级路由
+import MyOrder from '../pages/Center/MyOrder'
+import GroupOrder from '../pages/Center/GroupOrder'
 
 // 配置路由
 export default [
@@ -75,5 +79,23 @@ export default [
         path: '/paysuccess',
         component: PaySuccess,
         meta: { show: false }
+    },
+    {
+        path: '/center',
+        component: Center,
+        meta: { show: false },
+        // 重定向
+        redirect: '/center/myorder',
+        // 二级路由
+        children: [
+            {
+                path: 'myorder',
+                component: MyOrder
+            },
+            {
+                path: 'grouporder',
+                component: GroupOrder
+            }
+        ]
     }
 ]

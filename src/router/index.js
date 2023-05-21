@@ -59,8 +59,14 @@ router.beforeEach((to, from, next) => {
             }
         }
     } else {
-        // 未登录，放行
-        next()
+        // 未登录，不能去交易相关，支付相关，个人中心等，点击去登录
+        let toPath = to.path
+        if (toPath.indexOf('/trade') !== -1 || toPath.indexOf('/pay') !== -1 || toPath.indexOf('/center') !== -1) {
+            // 把未登录跳转地址存储
+            next(`/login?redirect=${toPath}`)
+        } else {
+            next()
+        }
     }
 })
 

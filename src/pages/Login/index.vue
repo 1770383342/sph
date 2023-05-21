@@ -97,7 +97,11 @@ export default {
           })
           .then((res) => {
             if (res === "成功") {
-              this.$router.push("/home");
+              if (this.$route.query.redirect) {
+                this.$router.push(this.$route.query.redirect);
+              } else {
+                this.$router.push("/home");
+              }
             } else {
               console.log(res);
             }

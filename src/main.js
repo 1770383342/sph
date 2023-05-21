@@ -21,6 +21,14 @@ import * as API from "@/api";
 // Vue.use(ElementUI); 全局注册
 import { Button } from 'element-ui';
 Vue.component(Button.name, Button);
+// 引入插件
+import VueLazyload from 'vue-lazyload'
+import load from '../public/images/load.gif'
+// 注册
+Vue.use(VueLazyload, {
+  // 懒加载默认图片
+  loading: load
+})
 
 Vue.config.productionTip = false
 new Vue({

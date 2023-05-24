@@ -10,5 +10,8 @@ module.exports = defineConfig({
         // pathRewrite:''
       }
     }
-  }
+  },
+  assetsDir: 'static',
+  parallel: false,
+  publicPath: './',
 })
